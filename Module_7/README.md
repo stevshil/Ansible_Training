@@ -1,1 +1,4 @@
-# Final Practical
+# Secrets and APIs
+
+* Ansible vault
+* Working with APIs

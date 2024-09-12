@@ -73,7 +73,7 @@ Ansible will fail to connect to new SSH hosts if the SSH fingerprint request is 
       StrictHostKeyChecking no
       UserKnownHostsFile /dev/null
       User ansible
-      IdentifyFile ~/.ssh/ansible
+      IdentityFile ~/.ssh/ansible
     ```
     * The above line prevent the SSH fingerprint, do not add hosts to known_hosts file, uses **ansible** username by default and uses the **~/.ssh/ansible** ssh key for the connection.
 
