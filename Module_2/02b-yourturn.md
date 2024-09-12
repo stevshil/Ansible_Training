@@ -25,14 +25,14 @@ From this point onward when working on the labs we will use this directory to bu
 For muscle memory, let's recreate the ansible.ini file from earlier that manages our machines;
 
 ```
-[controller]
+[controllers]
 controller ansible_host=localhost ansible_connection=local
 
-[webserver]
-web01 ansible_host=192.168.1.2
+[webservers]
+web01 ansible_host=192.168.1.2 ansible_user=ansible ansible_ssh_private_key_file=~/.ssh/ansible os=rhel ansible_become=true ansible_become_user=root
 
-[database]
-db01 ansible_host=192.168.1.3
+[databases]
+db01 ansible_host=192.168.1.3 ansible_user=ansible ansible_ssh_private_key_file=~/.ssh/ansible os=rhel ansible_become=true ansible_become_user=root
 
 [appservers]
 web01
@@ -63,10 +63,10 @@ Start by using the **ping** module.
     * The node we are on right now
 2. Target all nodes
     * For this you will need to specify **all** instead of the specific Ansible alias name for the node.
-3. Target the webserver node using its group name
+3. Target the webservers node using its group name
 4. Target the database node using its alias node name
-5. Target the webserver and database server using the **appserver** group name.
-    * This should result in both web and database servers being pingged.
+5. Target the webservers and databases using the **appservers** group name.
+    * This should result in both webservers and databases being pingged.
 
 **NOTE:** Currently the configuration of our system is to run sequentially.  This is handy when things go wrong as it's easier to identify which system broke.
 
