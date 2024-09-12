@@ -1,0 +1,23 @@
+- hosts: webservers
+  vars:
+    web_page_content: Welcome to my Ansible built web server, using Apache. Part Duex
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Create index file
+      ansible.builtin.lineinfile:
+        path: /var/www/html/index.html
+        line: "{{ web_page_content }}"
+        create: yes
+        group: root
+        owner: root
+
+    - name: Start and Enable Apache
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: yes
