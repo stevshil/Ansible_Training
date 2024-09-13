@@ -1,0 +1,26 @@
+- name: SWAPI get character
+  hosts: webservers
+  vars:
+    person: 1
+
+  tasks:
+    - name: "Get character {{ person }}"
+      ansible.builtin.uri:
+        url: "https://swapi.dev/api/people/{{ person }}/"
+        method: GET
+      register: results
+
+    - name: Output
+      ansible.builtin.debug:
+        var: results.json.name
+
+    - name: Set variables
+      ansible.builtin.set_fact:
+        swname: "{{results.json.name}}"
+        hair_color: "{{results.json.hair_color}}"
+
+    - name: More Output
+      ansible.builtin.debug:
+        msg:
+          - "{{ swname }}"
+          - "{{ hair_color }}"

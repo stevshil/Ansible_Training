@@ -1,4 +1,5 @@
 # Working with APIs
 
-Ansible allows us to work with HTTP request, which in turn means we can work with remote API calls to configure or query information from that service.
-
+* [Using GET requests](01-GET.md)
+* [Using POST requests](02-POST.md)
+* [Practical](03-Practical.md)
