@@ -1,0 +1,57 @@
+- name: Manage MySQL database servers RHEL
+  hosts: databases
+  vars:
+    sauser: root
+    sapass: secret123
+    dbuser: devuser
+    dbpass: secret123
+
+  tasks:
+    - name: Install MariaDB package
+      package:
+        name:
+          - mariadb-server
+          - mysql
+          - python3-PyMySQL
+
+    - name: Add remote root user
+      community.mysql.mysql_user:
+        check_implicit_admin: yes
+        login_unix_socket: "/run/mysqld/mysqld.sock"
+        login_user: root
+        login_password: ""
+        name: "{{ sauser }}"
+        host: "%"
+        password: "{{ sapass }}"
+        encrypted: false
+        priv: '*.*:ALL'
+        state: present
+
+
+    - name: Add remote devuser
+      community.mysql.mysql_user:
+        check_implicit_admin: yes
+        login_unix_socket: "/run/mysqld/mysqld.sock"
+        login_user: root
+        login_password: ""
+        name: "{{ dbuser }}"
+        password: "{{ dbpass }}"
+        host: "%"
+        encrypted: false
+        priv: "*.*:ALL"
+        state: present
+
+    - name: Change Mariadb to run from any IP
+      ansible.builtin.lineinfile:
+        path: /etc/my.cnf
+        regexp: "^bind-address.*="
+        line: bind-address = 0.0.0.0
+      notify:
+        - Restart DB
+
+
+  handlers:
+    - name: Restart DB
+      service:
+        name: mariadb
+        state: restarted
