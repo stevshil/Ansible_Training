@@ -1,0 +1,8 @@
+<html>
+  <body>
+    <h1>Welcome to Ansible</h1>
+    <h3>Hosted on {{ ansible_facts['default_ipv4']['address'] }}
+    <p>{{ ansible_facts['all_ipv4_addresses'][0] }}</p>
+    <p>This is the static index file</p>
+  </body>
+</html>

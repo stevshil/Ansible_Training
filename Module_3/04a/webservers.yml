@@ -1,0 +1,38 @@
+- hosts: webservers
+  vars:
+    web_page_content: Welcome to my Ansible built web server, using Apache. Part Duex
+    portno: 8080
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Create index file
+      ansible.builtin.template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+        group: root
+        owner: root
+        mode: 0644
+
+    - name: "Set port number {{ portno }}"
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "^Listen 80"
+        line: "Listen {{ portno }}"
+      notify:
+        - Restart Apache
+
+    - name: Start and Enable Apache
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.systemd:
+        name: httpd
+        state: restarted

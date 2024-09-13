@@ -1,0 +1,6 @@
+# This hosts file is created by Ansible, do not edit!
+
+127.0.0.1 localhost
+{% for host in groups["all"] -%}
+{{ hostvars[host]["ansible_host"] }}    {{ host }}
+{% endfor -%}

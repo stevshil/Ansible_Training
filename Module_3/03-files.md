@@ -60,3 +60,5 @@ We will change this to using the **copy** module, https://docs.ansible.com/ansib
 Save the playbook and run it.
 
 You should now see that the original lines of text are not proper HTML.  Our file was copied from the files directory into the **dest** value on the node.
+
+When you run curl against that host or point your web browser at the host you should see the new HTML file.
