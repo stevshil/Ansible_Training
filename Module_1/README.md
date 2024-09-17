@@ -6,6 +6,7 @@ The main focus of this lab is to work with the trainer and working through the i
 
 ## Content
 
+* [What is Ansible?](01_What_is_Ansible.pdf)
 * [Installing Ansible on a practice system](01-Install_Local.md)
 * [Installing an Ansible Controller](02-Install_Controller.md)
 * [Back to the top](../README.md)

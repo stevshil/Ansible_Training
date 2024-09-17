@@ -1,0 +1,25 @@
+- name: Uninstall MariaDB
+  hosts: databases
+
+  tasks:
+    - name: Stop database
+      ansible.builtin.systemd:
+        name: mariadb
+        state: stopped
+    - name: Uninstall MariaDB
+      ansible.builtin.package:
+        name:
+          - mariadb-server
+          - mariadb-client
+          - python3-pymysql
+        autoremove: true
+        purge: true
+        state: absent
+    - name: Remove Database Files
+      ansible.builtin.file:
+        path: /var/lib/mysql
+        state: absent
+    - name: Remove Database Config
+      ansible.builtin.file:
+        path: /etc/mysql
+        state: absent

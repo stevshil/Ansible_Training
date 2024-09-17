@@ -6,6 +6,11 @@ Add the code to your **webservers.yml** and **databases.yml** that will provisio
 
 Add the template file to your **templates** directory and call it **etc_resolv.conf.j2**.
 
+Requirements:
+
+* Ansible **template** module
+* Jinja2 **for** loop
+
 Your final file should look like:
 
 ```

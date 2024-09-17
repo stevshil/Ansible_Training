@@ -1,0 +1,41 @@
+- name: Creating variables
+  hosts: databases
+
+  tasks:
+  - name: Get variable data
+    ansible.builtin.set_fact:
+      host_ip: "{{ ansible_facts.all_ipv4_addresses[0] }}"
+      arch: "{{ ansible_facts.architecture }}"
+      bios_date: "{{ ansible_facts.bios_date }}"
+      bios_version: "{{ ansible_facts.bios_version }}"
+      os_dist: "{{ ansible_facts.distribution }}"
+      os_version: "{{ ansible_facts.distribution_version }}"
+      os_family: "{{ ansible_facts.os_family }}"
+      kernel: "{{ ansible_facts.kernel }}"
+
+  - name: Print variables
+    ansible.builtin.debug:
+      msg:
+        - "{{ host_ip  }}"
+        - "{{ arch }}"
+        - "{{ bios_date }}"
+        - "{{ bios_version }}"
+        - "{{ os_dist }}"
+        - "{{ os_version }}"
+        - "{{ os_family }}"
+        - "{{ kernel }}"
+
+  - name: Write variables
+    ansible.builtin.copy:
+      dest: /tmp/my_vars
+      content: |
+        "{{ host_ip  }}"
+        "{{ arch }}"
+        "{{ bios_date }}"
+        "{{ bios_version }}"
+        "{{ os_dist }}"
+        "{{ os_version }}"
+        "{{ os_family }}"
+        "{{ kernel }}"
+    delegate_to: 127.0.0.1
+```

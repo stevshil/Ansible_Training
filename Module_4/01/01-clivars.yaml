@@ -1,0 +1,9 @@
+- name: Variable command line override
+  hosts: controller
+  vars:
+    my_version: 1.0
+
+  tasks:
+    - name: Show variable value
+      ansible.builtin.debug:
+        msg: "The value of my_version is {{ my_version }}"
