@@ -1,9 +1,5 @@
 # More Inventory
 
-- Sensitive data
-- Ansible vault and other secret services
-- Storing state, updating the inventory at runtime (dynamic)
-
-Practical
-- Changing the playbooks
-	- Store host IP address in inventory
+* [Sensitive data](01-Sensitive.md)
+* [Ansible vault](02-AnsibleVault.md)
+* [Storing state, updating the inventory at runtime (dynamic)](03-DynamicInventory.md)
