@@ -1,0 +1,68 @@
+- hosts: webservers
+  vars:
+    portno: 80
+    nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  tasks:
+    - name: Set package if Debian
+      ansible.builtin.set_fact:
+        package_name: apache2
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Set package if RHEL
+      ansible.builtin.set_fact:
+        package_name: httpd
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Install Apache
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+
+    - name: Create index file
+      ansible.builtin.template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+        group: root
+        owner: root
+        mode: 0644
+
+    - name: "Set port number {{ portno }}"
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "^Listen 80"
+        line: "Listen {{ portno }}"
+      notify:
+        - Restart Apache
+
+    - name: Start and Enable Apache
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Edit hosts file
+      ansible.builtin.template:
+        src: templates/etc_hosts.j2
+        dest: /etc/hosts
+        group: root
+        owner: root
+        mode: 0644
+      tags:
+        - hosts
+
+    - name: Configure resolver
+      ansible.builtin.template:
+        src: templates/etc_resolv.conf.j2
+        dest: /etc/resolv.conf
+        group: root
+        owner: root
+        mode: 0644
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.systemd:
+        name: "{{ package_name }}"
+        state: restarted
