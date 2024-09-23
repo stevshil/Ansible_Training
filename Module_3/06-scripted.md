@@ -188,3 +188,55 @@ ansible-playbook --check --diff databases.yml
 Luckily for us Ansible is idempotent, so we can run the playbook.  If there are failures we can fix them and run the playbook.
 
 **NOTE:** We should always test our playbooks against an empty system to prove it works.  The reason behind this is that sometimes we don't spot issues if we have a partial build that we continue to build on.
+
+## Failing on community.mysql
+
+If your playbook fails to run and complains about the **community.mysql** module not being available, run the following commands:
+
+```sh
+$ ansible-galaxy collection install community.general
+$ ansible-galaxy collection install community.mysql
+```
+
+We will discuss **ansible-galaxy** later in the course.
+
+# Checking it worked
+
+On you Ansible controller install the client.
+
+* Debian systems
+  ```
+  apt -y install mariadb-client
+  ```
+* RHEL system
+  ```
+  dnf -y install mysql
+  ```
+
+Once installed connect with:
+
+```sh
+mysql -h dbIPaddress -uroot -psecret123
+```
+
+Change **root** to **devuser** to check the other user.
+
+You should connect to the DB and see something similar to the following:
+
+```sh
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.3.39-MariaDB-9ubuntu0.20.04.2 Ubuntu 20.04
+
+......
+
+MariaDB [(none)]>
+```
+
+To quit type:
+
+```
+\q
+```
+
+Press enter.

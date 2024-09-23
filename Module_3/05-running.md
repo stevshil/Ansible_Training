@@ -146,6 +146,8 @@ You'll notice in the output a file **diff** occuring and the output is very simi
 
 You can perform more detailed scans of your Ansible playbooks by using **ansible-lint** command.  This command is not installed by default with Ansible.
 
+This command requires Python3.9 or above.
+
 Depending on how you installed Ansible, will depend on how you install ansible-lint.  If you installed using packages, using commands such as **apt**, **dnf** or **yum** then you should use these, e.g.
 
 ```sh
