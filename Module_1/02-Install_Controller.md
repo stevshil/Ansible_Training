@@ -132,7 +132,7 @@ This command will copy your SSH public key to the other servers.  For this we ne
 ssh-copy-id -i ~/.ssh/mykey ansible@node1
 ```
 
-Replace **node1** with the hostname or IP addres of one of the managed nodes, then repeat the command for the other node.
+Replace **node1** with the hostname or IP address of one of the managed nodes, then repeat the command for the other node.
 
 You will be prompted for the ansible user password that you created on the other 2 nodes.
 
