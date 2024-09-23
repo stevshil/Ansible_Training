@@ -206,11 +206,11 @@ On you Ansible controller install the client.
 
 * Debian systems
   ```
-  apt -y install mariadb-client
+  sudo apt -y install mariadb-client
   ```
 * RHEL system
   ```
-  dnf -y install mysql
+  sudo dnf -y install mysql
   ```
 
 Once installed connect with:
