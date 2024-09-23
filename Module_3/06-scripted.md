@@ -219,6 +219,8 @@ Once installed connect with:
 mysql -h dbIPaddress -uroot -psecret123
 ```
 
+Change the **dbIPaddress** to the IP address of the database server which is in your Ansible hosts file.
+
 Change **root** to **devuser** to check the other user.
 
 You should connect to the DB and see something similar to the following:
