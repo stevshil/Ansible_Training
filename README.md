@@ -17,6 +17,8 @@ Naming convention used in the course to refer to the systems:
 * 2 x Ansible nodes (or Managed nodes)
   * The systems to be provisioned and managed by Ansible
 
+Python3.9 or above, ideally the latest version of Python.
+
 The aim of this course is to teach you how to write Ansible code using the thousands of resources out there, and making sense of what is written.  More importantly how to use the official Ansible documentation.
 
 A rally driving instructor once told me:
