@@ -65,7 +65,7 @@ Instead of creating a database role, let's use **bertvv.mariadb** role for manag
 3. The content for the **databases.yml** file will be as follows, taken from the documentation page of the role:
     ```yaml
     mariadb_server_params:
-      - option: bind_address
+      - option: bind-address
         value: 0.0.0.0
         section: mysqld
     mariadb_users:
