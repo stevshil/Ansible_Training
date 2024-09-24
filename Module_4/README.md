@@ -4,7 +4,7 @@ In this section we will look at how you can imrpove on your **single** playbooks
 
 We will also take a look at how you can conditionally control tasks and decide on when they should run or not.
 
-* [Variables and runtime attributes](01-Variables.md)
+* [Variables and runtime attributes](01a-Variables.md)
   * [Variables scripted lab](01b-scripted.md)
 * [Ansible facts and register](02a-Facts.md)
   * [Facts lab](02b-lab.md)
