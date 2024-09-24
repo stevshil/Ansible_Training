@@ -1,0 +1,81 @@
+- name: Manage MySQL database servers
+  hosts: databases
+  vars:
+    sauser: root
+    sapass: secret123
+    dbuser: devuser
+    dbpass: secret123
+
+  tasks:
+    - name: Packages list Debian
+      set_fact:
+        packages:
+          - mariadb-server
+          - mariadb-client
+          - python3-pymysql
+      when: ansible_facts['os_family'] == 'Debian'
+    
+    - name: Packages list Red Hat
+      set_fact:
+        packages:
+          - mariadb-server
+          - mysql
+          - python3-PyMySQL
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Update apt cache
+      apt:
+        update_cache: true
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install MariaDB package
+      package:
+        name: "{{ packages }}"
+
+    - name: Add remote root user
+      community.mysql.mysql_user:
+        check_implicit_admin: yes
+        login_unix_socket: "/run/mysqld/mysqld.sock"
+        login_user: root
+        login_password: ""
+        name: "{{ sauser }}"
+        host: "%"
+        password: "{{ sapass }}"
+        encrypted: false
+        priv: '*.*:ALL'
+        state: present
+
+
+    - name: Add remote devuser
+      community.mysql.mysql_user:
+        check_implicit_admin: yes
+        login_unix_socket: "/run/mysqld/mysqld.sock"
+        login_user: root
+        login_password: ""
+        name: "{{ dbuser }}"
+        password: "{{ dbpass }}"
+        host: "%"
+        encrypted: false
+        priv: "*.*:ALL"
+        state: present
+
+    - name: Change Mariadb to run from any IP
+      ansible.builtin.lineinfile:
+        path: /etc/mysql/mariadb.conf.d/50-server.cnf
+        regexp: "^bind-address.*="
+        line: bind-address = 0.0.0.0
+      notify:
+        - Restart DB
+      when: ansible_facts['os_family'] == 'Debian'
+    
+    - name: Start Mariadb Red Hat only
+      systemd:
+        name: mariadb
+        state: started
+      when: ansible_facts['os_family'] == 'RedHat'
+
+  handlers:
+    - name: Restart DB
+      service:
+        name: mariadb
+        state: restarted
