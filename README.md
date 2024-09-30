@@ -36,8 +36,8 @@ This is the same intent, so even if the labs don't build your Message Queue serv
 * [Module 4 - Next Level Playbooks](Module_4/README.md)
 * [Module 5 - Roles and Sites](Module_5/README.md)
 * [Module 6 - More Inventory](Module_6/README.md)
-* [Module 7 - Working with APIs](Module_8/README.md)
-* [Module 8 - Final Practical](Module_7/README.md)
+* [Module 7 - Working with APIs](Module_7/README.md)
+* [Module 8 - Final Practical](Module_8/README.md)
 
 All material on this Git repository are the Copyright &copy; 2024 TPS Services Ltd.
 
